@@ -1,7 +1,7 @@
 스택과 큐의 차이점
 - 스택(stack) : LIFO ( Last IN, First Out) 구조. 마지막에 들어온 데이터가 가장 먼저 나온다. 후입선출
-- 큐(Queue) : FIFO ( First In, First Out) 구조.
-먼저 들어온 데이터가 먼저 나온다. 선입선출
+- 큐(Queue) : FIFO ( First In, First Out) 구조. 먼저 들어온 데이터가 먼저 나온다. 선입선출
+
 
 - 중위 순회 방식
 왼쪽 서브트리 -> 루트 -> 오른쪽 서브트리
