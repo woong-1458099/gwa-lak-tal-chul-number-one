@@ -20,7 +20,7 @@
 #         print("run")
         
 
-        def check(card_count):
+def check(card_count):
     # triplet 확인
     for i in range(10):
         if card_count[i] >= 3:
