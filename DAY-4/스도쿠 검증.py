@@ -32,4 +32,42 @@ for tc in range(1, T + 1):
     
     print(f"#{tc} {valid}")
 
+#     T = int(input())
+
+# for tc in range(1, T + 1):
+#     N = 9
+#     sudoku = [list(map(int, input().split())) for _ in range(N)]
+
+#     # 일단 잘 되어 있다고 생각
+#     answer = 1
+
+#     for i in range(N):
+#         # 행
+#         row_set = set()
+#         # 열
+#         col_set = set()
+#         for j in range(N):
+#             # 숫자 9개씩 넣기
+#             row_set.add(sudoku[i][j])
+#             col_set.add(sudoku[j][i])
+
+#         # 행검사, 열검사 set는 중복을 허용하지 않으므로 빠짐없이 9개가 들어있어야함
+#         if len(row_set) != N or len(col_set) != N:
+#             answer = 0
+
+#     # 3 * 3
+#     for i in range(0, N, 3):
+#         for j in range(0, N, 3):
+#             box_set = set()
+#             for r in range(i, i + 3):
+#                 for c in range(j, j + 3):
+#                     box_set.add(sudoku[r][c])
+
+#             # print(i,j, box_set)
+#             if len(box_set) != N:
+#                 answer = 0
+
+#     print(f"#{tc} {answer}")
+
+
     
