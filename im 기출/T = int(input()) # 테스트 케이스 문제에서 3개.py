@@ -49,6 +49,6 @@ while True:
         # 이미 방문한 방이면 다음 방으로 이동
         # N_counter[Cur_position-1] == 1 : 이미 그 방을 방문한 경우
         
-	  if Cur_position == N:
+    if Cur_position == N:
         break
         # N에 다다르면 멈춤
