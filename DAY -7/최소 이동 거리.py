@@ -52,3 +52,5 @@ for tc in range(1, T + 1):
 
     # N번 노드까지의 최단 거리 출력
     print(f"#{tc} {dist_table[N]}")
+
+            
