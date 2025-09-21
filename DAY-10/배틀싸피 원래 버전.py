@@ -206,7 +206,7 @@ MOVE_CMDS = {0: "R A", 1: "D A", 2: "L A", 3: "U A"}
 FIRE_CMDS = {0: "R F", 1: "D F", 2: "L F", 3: "U F"}
 START_SYMBOL = 'M'
 TARGET_SYMBOL = 'X'
-WALL_SYMBOL = {'R', 'W'}
+WALL_SYMBOL = 'R'
 
 # 최초 데이터 파싱
 parse_data(game_data)

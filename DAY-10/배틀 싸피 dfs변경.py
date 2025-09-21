@@ -38,36 +38,23 @@ parse_data(game_data)
 
 
 # stage 4 까지 통과 가능
-from collections import deque
-
-# 방향 정의 (오른쪽, 아래, 왼쪽, 위)
-DIRS = [(0,1), (1,0), (0,-1), (-1,0)]
-MOVE_CMDS = {0: "R A", 1: "D A", 2: "L A", 3: "U A"}
-FIRE_CMDS = {0: "R F", 1: "D F", 2: "L F", 3: "U F"}
-START_SYMBOL = 'M'
-TARGET_SYMBOL = 'X'
-WALL_SYMBOL = {'R', 'W'}  # 바위, 물은 절대 못 지나감
-
-def in_range(r, c, rows, cols):
-    return 0 <= r < rows and 0 <= c < cols
-
-def can_fire(r, c, target, grid):
-    """현재 위치에서 사거리 3 안에 target(X)이 보이면 발사 가능"""
-    rows, cols = len(grid), len(grid[0])
-    for d, (dr, dc) in enumerate(DIRS):
+# ===== 사거리 3 발사 가능 여부 체크 =====
+def can_fire(r, c, target, dirs, max_range=3):
+    """
+    현재 위치 (r,c)에서 target을 사거리 max_range 이내로
+    직선 방향으로 쏠 수 있는지 확인
+    """
+    for d, (dr, dc) in enumerate(dirs):
         nr, nc = r, c
-        for step in range(1, 4):  # 1~3칸 직선 탐색
+        for dist in range(1, max_range + 1):
             nr += dr
             nc += dc
-            if not in_range(nr, nc, rows, cols):
-                break
             if (nr, nc) == target:
                 return True, d
-            if grid[nr][nc] in WALL_SYMBOL:  # 바위, 물에 막힘
-                break
     return False, -1
 
-# 경로 탐색 알고리즘 (Stage 4까지 가능)
+
+# ===== BFS 경로 탐색 =====
 def bfs(grid, start, target, wall):
     rows, cols = len(grid), len(grid[0])
     queue = deque([(start, [])])
@@ -76,19 +63,20 @@ def bfs(grid, start, target, wall):
     while queue:
         (r, c), actions = queue.popleft()
 
-        # ✅ 사거리 3 안에 X가 보이면 바로 FIRE
-        ok, d = can_fire(r, c, target, grid)
-        if ok:
-            return actions + [FIRE_CMDS[d]]
+        # --- 포탑 사거리 3 발사 체크 ---
+        fire_ok, direction = can_fire(r, c, target, DIRS, 3)
+        if fire_ok:
+            return actions + [FIRE_CMDS[direction]]
 
-        # 4방향 탐색
+        # --- 이동 확장 ---
         for d, (dr, dc) in enumerate(DIRS):
             nr, nc = r + dr, c + dc
-            if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] not in wall and (nr, nc) not in visited:
+            if (0 <= nr < rows and 0 <= nc < cols and
+                grid[nr][nc] not in wall and (nr, nc) not in visited):
                 visited.add((nr, nc))
                 queue.append(((nr, nc), actions + [MOVE_CMDS[d]]))
 
-    return []
+    return []  # 길 없음
 
 # stage 5 까지 통과 가능
 from collections import deque
