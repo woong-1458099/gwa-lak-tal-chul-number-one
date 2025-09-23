@@ -1,3 +1,22 @@
+# NxN 배열에 숫자가 들어있다. 한 줄에서 하나씩 N개의 숫자를 골라 합이 최소가 되도록 하려고 한다. 단, 세로로 같은 줄에서 두 개 이상의 숫자를 고를 수 없다.
+# 조건에 맞게 숫자를 골랐을 때의 최소 합을 출력하는 프로그램을 만드시오.
+ # 예를 들어 다음과 같이 배열이 주어진다.
+# 2  1  2
+# 5  8  5
+# 7  2  2
+# 이 경우 1, 5, 2를 고르면 8로 최소가 된다.
+
+
+# [입력]
+#  첫 줄에 테스트 케이스 개수 T가 주어진다.  1≤T≤50
+#  다음 줄부터 테스트 케이스의 첫 줄에 숫자 N이 주어지고, 이후 N개씩 N줄에 걸쳐 10보다 작은 자연수가 주어진다. 3≤N≤10
+
+ 
+# [출력]
+#  각 줄마다 "#T" (T는 테스트 케이스 번호)를 출력한 뒤, 합계를 출력한다.
+
+
+
 def find_min_sum(row, current_sum):
     global min_sum
     
@@ -14,9 +33,9 @@ def find_min_sum(row, current_sum):
     for col in range(N):
         # 해당 열이 아직 사용되지 않았다면
         if not visited[col]:
-            visited[col] = True  # 열 사용 처리
-            find_min_sum(row + 1, current_sum + arr[row][col])
-            visited[col] = False # 백트래킹: 열 사용 해제
+            visited[col] = True  # 열 사용 처리 -> 이번 행에서 col(열)을 선택했다는 흔적을 남김
+            find_min_sum(row + 1, current_sum + arr[row][col])  # 재귀 : 다음 행 (row+1)로 내려가서, 지금까지의 합에 이번에 고른 값을 더해 계속 탐색 -> 이번선택을 확정하고 그 다음 단계로 진행 하는 부분
+            visited[col] = False # 백트래킹: 방금 선택했던 열을 원상복구 -> 바로 다음 반복에서 다른 열을 선택해보려면, 이전 선택의 흔적을 지워야 함
 
 T = int(input())
 for tc in range(1, T + 1):
