@@ -26,3 +26,4 @@ for tc in range(1, T+1):
         if cnt_col == K:  # 열이 1로 끝난 경우. 인덴트 주의!!!
             total += 1
     print(f'#{tc} {total}')
+
