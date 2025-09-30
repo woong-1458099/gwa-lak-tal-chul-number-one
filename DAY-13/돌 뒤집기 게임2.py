@@ -4,7 +4,7 @@ for tc in range(1, T+1):
     N, M = map(int, input().split())  # N개의 돌, M개의 뒤집기 연산
     stones = list(map(int, input().split()))  # 초기 돌 상태
     
-    for _ in range(M):
+    for p in range(M):
         i, j = map(int, input().split())
         i -= 1
 
@@ -22,7 +22,8 @@ for tc in range(1, T+1):
 
     print(f"#{tc} {stones}")
 
-    # ^ : 두 비트가 다르면 1, 같으면 0
+    # ^ : 두 비트가 다르면 1, 같으면 0  XOR 이네 ..
+
 
     # a ^= b 는 a = a ^ b 와 같아
 
