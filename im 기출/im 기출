@@ -16,7 +16,7 @@ i = 0  # signal을 훑는 인덱스
 j = 0  # code를 훑는 인덱스
 
 # 신호 전체를 검사하면서 암호가 순서대로 등장하는지 확인한다.
-# 즉, "부분 수열(subsequence)" 확인 문제
+# "부분 수열(subsequence)" 확인 문제
 while i < len(signal) and j < len(code):
 
     # 만약 signal[i] 값이 code[j] 값과 같다면
