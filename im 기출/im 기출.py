@@ -4,6 +4,7 @@
 
 
 T = int(input())
+
 for tc in range(1, T + 1)
 # 신호 배열 입력 (ex: 1 3 2 4 5)
 signal = list(map(int, input().split()))
@@ -30,6 +31,6 @@ while i < len(signal) and j < len(code):
 # 반복이 끝난 후,
 # j가 code 길이와 같다면 → code의 모든 숫자를 순서대로 찾았다는 의미 → 포함됨
 if j == len(code):
-    print(1)   # 포함
+    print(f"#{tc} 1")   # 포함
 else:
-    print(0)   # 불포함
+    print(f"#{tc} 0")   # 불포함
