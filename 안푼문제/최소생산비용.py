@@ -35,7 +35,7 @@ for tc in range(1 , T + 1):
     N = int(input())
     # 제품 / 공장 개수
 
-    arr = [list(map(int, input().split() for _ in range(N)]
+    arr = [list(map(int, input().split())) for _ in range(N)]
     # arr[i][j] -> i번 제품을 j번 공장에서 생산하는 비용
 
     min_cost = 15 * 100
