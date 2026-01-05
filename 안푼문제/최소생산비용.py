@@ -8,10 +8,10 @@ def perm(idx, selected, now_cost):
 # idx번 공장에서 생산할 제품을 고르는 것
 
 
-    if now_cost >= min_cost
+    if now_cost >= min_cost:
         return
     # 가지치기 -> 현재 단계 까지 계산한 비용 now_cost가 이전에 내가 계산한 최소 비용 min_cost보다 큰 경우,
-    답이 될 가능성이 없으므로 현재의 재귀 호출을 return으로 즉시 종료하여 불필요한 연산을 줄인다.
+    # 답이 될 가능성이 없으므로 현재의 재귀 호출을 return으로 즉시 종료하여 불필요한 연산을 줄인다.
   
 
     if idx == N:
@@ -48,7 +48,7 @@ for tc in range(1 , T + 1):
     # " 0 번 공장에서 부터 시작해서, 아직 선택된 제품이 없는 상태에서, 현재까지의 비용은 0으로 두고 탐색을 시작해라"
     
 
-    print(f"#{tc} {min_cost})
+    print(f"#{tc} {min_cost}")
 
 
 # NxN 비용 행렬에서
