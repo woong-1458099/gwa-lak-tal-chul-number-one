@@ -1,77 +1,77 @@
-haser.js 자체에 AI 기능은 없어요. Phaser는 순수 게임 엔진이고 AI는 별도 라이브러리 붙이는 구조예요.
-Phaser.js 기본 구조
-javascript// 게임 설정
-const config = {
-  type: Phaser.AUTO,
-  width: 1920,
-  height: 1080,
-  scene: [MainMap, Classroom, Downtown] // 씬 단위로 화면 관리
-};
+// haser.js 자체에 AI 기능은 없어요. Phaser는 순수 게임 엔진이고 AI는 별도 라이브러리 붙이는 구조예요.
+// Phaser.js 기본 구조
+// javascript// 게임 설정
+// const config = {
+//   type: Phaser.AUTO,
+//   width: 1920,
+//   height: 1080,
+//   scene: [MainMap, Classroom, Downtown] // 씬 단위로 화면 관리
+// };
 
-const game = new Phaser.Game(config);
-```
+// const game = new Phaser.Game(config);
+// ```
 
-씬(Scene) 개념이 핵심이에요. Unity의 씬이랑 똑같아요. 화면 하나 = 씬 하나로 관리해요.
-```
-MainScene     → 메인 맵
-ClassroomScene → 강의장
-DowntownScene  → 번화가
-RoomScene     → 자취방
-UIScene       → 능력치/AP 항상 위에 표시
-WASD 이동 구현
-javascriptcreate() {
-  this.cursors = this.input.keyboard.createCursorKeys();
-  this.wasd = this.input.keyboard.addKeys('W,A,S,D');
-  this.player = this.physics.add.sprite(400, 300, 'player');
-}
+// 씬(Scene) 개념이 핵심이에요. Unity의 씬이랑 똑같아요. 화면 하나 = 씬 하나로 관리해요.
+// ```
+// MainScene     → 메인 맵
+// ClassroomScene → 강의장
+// DowntownScene  → 번화가
+// RoomScene     → 자취방
+// UIScene       → 능력치/AP 항상 위에 표시
+// WASD 이동 구현
+// javascriptcreate() {
+//   this.cursors = this.input.keyboard.createCursorKeys();
+//   this.wasd = this.input.keyboard.addKeys('W,A,S,D');
+//   this.player = this.physics.add.sprite(400, 300, 'player');
+// }
 
-update() {
-  if (this.wasd.A.isDown) {
-    this.player.setVelocityX(-160);
-  } else if (this.wasd.D.isDown) {
-    this.player.setVelocityX(160);
-  } else {
-    this.player.setVelocityX(0);
-  }
-}
-이 프로젝트에서 AI 붙이는 방법
-Phaser 자체 AI 없고 외부 라이브러리 연동이에요.
-웃음참기 게임은 face-api.js 써요.
-javascript// 웹캠 표정 인식
-import * as faceapi from 'face-api.js';
+// update() {
+//   if (this.wasd.A.isDown) {
+//     this.player.setVelocityX(-160);
+//   } else if (this.wasd.D.isDown) {
+//     this.player.setVelocityX(160);
+//   } else {
+//     this.player.setVelocityX(0);
+//   }
+// }
+// 이 프로젝트에서 AI 붙이는 방법
+// Phaser 자체 AI 없고 외부 라이브러리 연동이에요.
+// 웃음참기 게임은 face-api.js 써요.
+// javascript// 웹캠 표정 인식
+// import * as faceapi from 'face-api.js';
 
-// 웃음 감지 로직
-const detection = await faceapi.detectSingleFace(video)
-  .withFaceExpressions();
+// // 웃음 감지 로직
+// const detection = await faceapi.detectSingleFace(video)
+//   .withFaceExpressions();
 
-if (detection.expressions.happy > 0.7) {
-  // 웃음 감지 → 실패 처리
-  this.scene.get('GameScene').emit('smile-detected');
-}
-엔딩 텍스트 생성은 Codex API 호출이에요.
-javascriptconst response = await fetch('/api/ending', {
-  method: 'POST',
-  body: JSON.stringify({ stats, playLog })
-});
-```
+// if (detection.expressions.happy > 0.7) {
+//   // 웃음 감지 → 실패 처리
+//   this.scene.get('GameScene').emit('smile-detected');
+// }
+// 엔딩 텍스트 생성은 Codex API 호출이에요.
+// javascriptconst response = await fetch('/api/ending', {
+//   method: 'POST',
+//   body: JSON.stringify({ stats, playLog })
+// });
+// ```
 
-**Phaser + React 연동 구조**
-```
-React (전체 앱 껍데기)
-├── UI 컴포넌트 (능력치창/메뉴/팝업) → React
-└── 게임 캔버스 → Phaser
-    ├── MainMapScene
-    ├── ClassroomScene
-    ├── DowntownScene
-    └── RoomScene
-React가 UI 담당하고 Phaser가 게임 캔버스 담당하는 구조예요. 둘 사이 통신은 이벤트로 해요.
-javascript// Phaser → React 로 능력치 변화 전달
-EventBus.emit('stats-changed', { 지능: +5, 스트레스: +3 });
+// **Phaser + React 연동 구조**
+// ```
+// React (전체 앱 껍데기)
+// ├── UI 컴포넌트 (능력치창/메뉴/팝업) → React
+// └── 게임 캔버스 → Phaser
+//     ├── MainMapScene
+//     ├── ClassroomScene
+//     ├── DowntownScene
+//     └── RoomScene
+// React가 UI 담당하고 Phaser가 게임 캔버스 담당하는 구조예요. 둘 사이 통신은 이벤트로 해요.
+// javascript// Phaser → React 로 능력치 변화 전달
+// EventBus.emit('stats-changed', { 지능: +5, 스트레스: +3 });
 
-// React에서 받아서 UI 업데이트
-EventBus.on('stats-changed', (stats) => {
-  setPlayerStats(prev => ({ ...prev, ...stats }));
-});
-이번주 팀에서 해야 할 것
-Phaser 공식 튜토리얼 먼저 보는 게 좋아요. Making your first Phaser game 이걸 팀원 전체가 하루만 따라해보면 감 잡혀요. 그다음 메인맵 씬 하나만 만들어서 캐릭터 WASD 이동 되는 거 확인하는 게 1주차 목표로 딱 맞아요.
-공식 문서는 phaser.io/learn 여기예요!
+// // React에서 받아서 UI 업데이트
+// EventBus.on('stats-changed', (stats) => {
+//   setPlayerStats(prev => ({ ...prev, ...stats }));
+// });
+// 이번주 팀에서 해야 할 것
+// Phaser 공식 튜토리얼 먼저 보는 게 좋아요. Making your first Phaser game 이걸 팀원 전체가 하루만 따라해보면 감 잡혀요. 그다음 메인맵 씬 하나만 만들어서 캐릭터 WASD 이동 되는 거 확인하는 게 1주차 목표로 딱 맞아요.
+// 공식 문서는 phaser.io/learn 여기예요!
