@@ -7,8 +7,7 @@ for tc in range(1, T+1):
     # value : 0으로 초기화 소인수가 곱해진 수 만큼 더해짐
  
     for num in d.keys():
-        while N % num == 0: # N이 num으로 나누어 떨어지는 동안 반복
-            d[num] += 1
+        while N % num == 0: # N이 num으로 나누어 떨어지는 동안 반복해야지
             N //= num
     print(f"#{tc}", end=" ")
     print(*d.values())
