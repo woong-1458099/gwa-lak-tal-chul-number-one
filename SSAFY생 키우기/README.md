@@ -120,4 +120,4 @@ src/features/minigame/
 - 현재 대화 가능한 NPC는 scene state에 들어 있는 NPC 기준으로 잡힌다.
 - 새 NPC를 추가할 때는 ID, 정의, 에셋 정합성이 먼저 맞아야 한다.
 - `InteractionManager`는 NPC뿐 아니라 area transition과 static place 상호작용도 처리한다.
-- 이 문서만 읽고 전체 기능 범위를 판단하면 저장, 인증, 인벤토리, 진행, 미니게임 계층을 놓칠 수 있다. 관련 작업이면 반드시 `src/features`와 씬 registry까지 확인해라.
+- 이 문서만 읽고 전체 기능 범위를 판단하면 저장, 인증, 인벤토리, 진행, 미니게임 계층을 놓칠 수 있다. 관련 작업이면 반드시 `src/features`와 씬 registry까지 확인해라
